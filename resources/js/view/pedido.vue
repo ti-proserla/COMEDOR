@@ -38,26 +38,34 @@ export default {
                 clearTimeout(this.timer);
             }
             if (this.codigo_barras.length==8) {
+                var envio={
+                    codigo_personal: this.codigo_barras
+                };
                 this.codigo_barras='';
-                var respuesta={
-                    status: 'OK',
-                    data: 'Solis, Ya puedes recoger tu Almuerzo.'
-                }
-                switch (respuesta.status) {
-                    case 'OK':
-                        this.alert.status= 'primary';
-                        this.alert.visible= true;
-                        this.alert.message= respuesta.data;
-                        break;
-                    default:
-                        this.alert.status= 'warning',
-                        this.alert.visible= true;
-                        this.alert.message=respuesta.data;
-                        break;
-                }
-                this.timer=setTimeout(() => {
-                    this.alert=this.initAlert();
-                }, 10000);
+                axios.post(url_base+'/pedido',envio)
+                .then(response => {
+                    var respuesta=response.data;
+                    switch (respuesta.status) {
+                        case 'OK':
+                            this.alert.status= 'primary';
+                            this.alert.visible= true;
+                            this.alert.message= respuesta.data;
+                            break;
+                        case 'ERROR':
+                            this.alert.status= 'danger';
+                            this.alert.visible= true;
+                            this.alert.message= respuesta.data;
+                            break;
+                        default:
+                            this.alert.status= 'warning',
+                            this.alert.visible= true;
+                            this.alert.message=respuesta.data;
+                            break;
+                    }
+                    this.timer=setTimeout(() => {
+                        this.alert=this.initAlert();
+                    }, 10000);
+                });
             }else{
                 this.alert.status= 'danger';
                 this.alert.visible= true;

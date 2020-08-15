@@ -32,7 +32,7 @@ class ValidatePersonalNuevo extends FormRequest
     {
 
         return [
-            'codigo' => 'required',
+            'codigo' => 'required|max:8',
             'nombres' => 'required',
             'apellidos' => 'required',
             'planilla_id' => 'required',
@@ -41,9 +41,7 @@ class ValidatePersonalNuevo extends FormRequest
     }
 
     protected function failedValidation(Validator $validator) {
-        //extraer array
         $sin_array=str_replace(["[","]"], "",json_encode($validator->errors()));
-        dd($validator);
         throw new HttpResponseException(response()->json([
             "status" => "VALIDATION",
             "data"   =>  json_decode($sin_array)

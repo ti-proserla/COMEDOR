@@ -15,7 +15,8 @@ class CreatePedidoTable extends Migration
     {
         Schema::create('pedido', function (Blueprint $table) {
             $table->id();
-            $table->string('codigo_operador',8);
+            $table->string('codigo_personal',8);
+            $table->integer('servicio_id')->nullable();
             $table->timestamps();
         });
     }

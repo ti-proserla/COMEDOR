@@ -45,6 +45,13 @@ class PersonalController extends Controller
      */
     public function store(ValidatePersonalNuevo $request)
     {
+        $personal=Personal::where('codigo',$request->codigo)->first();
+        if ($personal!=null) {
+            return response()->json([
+                "status"=> "ERROR",
+                "data"  => "Personal ya registrado."
+            ]);
+        }
         $personal=new Personal();
         $personal->codigo=$request->codigo;
         $personal->nombres=strtoupper($request->nombres);
@@ -56,7 +63,6 @@ class PersonalController extends Controller
             "status"=> "OK",
             "data"  => "Personal Registrado."
         ]);
-        
     }
     
     /**

@@ -17,6 +17,11 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('login','CuentaController@login')->name('cuenta.login');
 Route::resource('empresa', 'EmpresaController');
 Route::resource('planilla', 'PlanillaController');
 Route::resource('personal', 'PersonalController');
+Route::resource('servicio', 'ServicioController');
+Route::post('pedido', 'PedidoController@store');
+Route::get('reporte/fecha', 'ReporteController@fecha');
+Route::get('reporte/personal', 'ReporteController@personal');

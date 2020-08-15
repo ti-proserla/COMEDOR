@@ -5,7 +5,24 @@
                 <v-card>
                     <v-card-title>Personal</v-card-title>
                     <v-card-text>
-                        <v-btn @click="open_nuevo=true" outlined color="info">Nueva personal</v-btn>
+                        <v-row>
+                            <v-col cols=12 md=6>
+                                <v-btn @click="open_nuevo=true" outlined color="info">Nuevo personal</v-btn>
+                            </v-col>
+                            <v-col cols=10 md=6>
+                                <v-text-field 
+                                        label="Buscar:" 
+                                        v-model="search"
+                                        outlined
+                                        dense
+                                        clearable
+                                        @keyup.native="listar()"
+                                    ></v-text-field>
+                            </v-col>
+                            <!-- <v-col cols=2 md=1>
+                                <v-btn color="primary" @click="listar()"><i class="fas fa-search"></i></v-btn>
+                            </v-col> -->
+                        </v-row>
                         <!-- Nuevo -->
                         <v-dialog v-model="open_nuevo" persistent max-width="350">
                             <v-card>
@@ -20,25 +37,29 @@
                                         required 
                                         label="Nombres" 
                                         v-model="personal.nombres"
+                                        :error-messages="error.nombres"
                                     ></v-text-field>
                                     <v-text-field 
                                         required 
                                         label="Apellidos" 
                                         v-model="personal.apellidos"
+                                        :error-messages="error.apellidos"
                                     ></v-text-field>
                                     <v-select
                                         v-model="personal.empresa_id"
                                         label="Empresa"
                                         :items="empresas"
                                         item-text="nombre_empresa"
-                                        item-value="id">
+                                        item-value="id"
+                                        :error-messages="error.empresa_id">
                                         </v-select>
                                     <v-select
                                         v-model="personal.planilla_id"
                                         label="Planilla"
                                         :items="planillas"
                                         item-text="nombre_planilla"
-                                        item-value="id">
+                                        item-value="id"
+                                        :error-messages="error.planilla_id">
                                         </v-select>
                                     <div class="text-right">
                                         <v-btn outlined color="secondary" @click="open_nuevo=false">Cancelar</v-btn>
@@ -52,33 +73,33 @@
                             <v-card>
                                 <v-card-title class="headline">Modificar personal</v-card-title>
                                 <v-card-text>
-                                    <v-text-field 
-                                        required 
-                                        label="Código" 
-                                        v-model="personal_editar.codigo"
-                                    ></v-text-field>
+                                    {{personal_editar.codigo}}
                                     <v-text-field 
                                         required 
                                         label="Nombres" 
                                         v-model="personal_editar.nombres"
+                                        :error-messages="error_editar.nombres"
                                     ></v-text-field>
                                     <v-text-field 
                                         required 
                                         label="Apellidos" 
                                         v-model="personal_editar.apellidos"
+                                        :error-messages="error_editar.apellidos"
                                     ></v-text-field>
                                     <v-select
                                         v-model="personal_editar.empresa_id"
                                         label="Empresa"
                                         :items="empresas"
                                         item-text="nombre_empresa"
-                                        item-value="id">
-                                        </v-select>
+                                        item-value="id"
+                                        :error-messages="error_editar.empresa_id"
+                                        ></v-select>
                                     <v-select
                                         v-model="personal_editar.planilla_id"
                                         label="Planilla"
                                         :items="planillas"
                                         item-text="nombre_planilla"
+                                        :error-messages="error_editar.planilla_id"
                                         item-value="id">
                                         </v-select>
                                     <div class="text-right">
@@ -88,6 +109,7 @@
                                 </v-card-text>
                             </v-card>               
                         </v-dialog>
+
                         <v-data-table
                             :headers="header"
                             :items="table.data"
@@ -121,11 +143,15 @@ export default {
                 last_page: 1,
                 data: []
             },
+            search: '',
             empresas: [],
             planillas: [],
             personal:  this.initPersonal(),
             personal_editar:  this.initPersonal(),
             error: {
+
+            },
+            error_editar: {
 
             }
         }
@@ -169,6 +195,13 @@ export default {
                     case 'VALIDATION':
                         this.error=respuesta.data;
                         break;
+                    case 'ERROR':
+                        this.$notify({
+                            group: 'foo',
+                            title: respuesta.data,
+                            type: 'warn'
+                        })
+                        break;
                     default:
 
                         break;
@@ -176,7 +209,7 @@ export default {
             });
         },
         listar(n=this.table.current_page){
-            axios.get(url_base+'/personal?page='+n)
+            axios.get(url_base+'/personal?page='+n+'&search='+this.search)
             .then(response => {
                 this.table = response.data;
             })
