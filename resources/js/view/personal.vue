@@ -8,6 +8,7 @@
                         <v-row>
                             <v-col cols=12 md=6>
                                 <v-btn @click="open_nuevo=true" outlined color="info">Nuevo personal</v-btn>
+                                <masivo></masivo>
                             </v-col>
                             <v-col cols=10 md=6>
                                 <v-text-field 
@@ -19,9 +20,6 @@
                                         @keyup.native="listar()"
                                     ></v-text-field>
                             </v-col>
-                            <!-- <v-col cols=2 md=1>
-                                <v-btn color="primary" @click="listar()"><i class="fas fa-search"></i></v-btn>
-                            </v-col> -->
                         </v-row>
                         <!-- Nuevo -->
                         <v-dialog v-model="open_nuevo" persistent max-width="350">

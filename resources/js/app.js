@@ -67,7 +67,7 @@ if (store.state.cuenta!=null) {
 import Dashboard from './App.vue';
 Vue.component('empty',require("./capas/empty.vue").default);
 Vue.component('panel',require("./capas/panel.vue").default);
-
+Vue.component("masivo", require("./view/masivo.vue").default);
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
