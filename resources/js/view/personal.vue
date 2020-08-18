@@ -8,7 +8,7 @@
                         <v-row>
                             <v-col cols=12 md=6>
                                 <v-btn @click="open_nuevo=true" outlined color="info">Nuevo personal</v-btn>
-                                <masivo></masivo>
+                                <masivo @change="listar"></masivo>
                             </v-col>
                             <v-col cols=10 md=6>
                                 <v-text-field 

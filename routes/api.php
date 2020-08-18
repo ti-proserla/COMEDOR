@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login','CuentaController@login')->name('cuenta.login');
 Route::resource('empresa', 'EmpresaController');
 Route::resource('planilla', 'PlanillaController');
+Route::post('personal/masivo', 'PersonalController@masivo');
 Route::resource('personal', 'PersonalController');
 Route::resource('servicio', 'ServicioController');
 Route::post('pedido', 'PedidoController@store');

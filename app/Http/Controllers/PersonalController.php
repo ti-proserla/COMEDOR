@@ -64,6 +64,52 @@ class PersonalController extends Controller
             "data"  => "Personal Registrado."
         ]);
     }
+
+    public function masivo(Request $request){
+        DB::beginTransaction();
+        $planilla_id=$request->planilla_id;
+        $empresa_id=$request->empresa_id;
+
+        $repetidos=0;
+        $arrayRepetidos=[];
+        $nuevos=0;
+        foreach ($request->personales as $key => $item) {
+            if (!isset($item["codigo"])||!isset($item["nombres"])||!isset($item["apellidos"])) {
+                
+                DB::rollback();
+                return response()->json([
+                    "status"=> "ERROR",
+                    "data"  => "Existen datos vacios."
+                ]);
+            }
+
+            $codigo=$item["codigo"];
+            $nombres=$item["nombres"];
+            $apellidos=$item["apellidos"];
+            
+            $personal=Personal::where('codigo',$codigo)->first();
+
+            if ($personal==null) {
+                $personal=new Personal();
+                $personal->codigo=$codigo;
+                $personal->nombres=strtoupper($nombres);
+                $personal->apellidos=strtoupper($apellidos);
+                $personal->planilla_id=$planilla_id;
+                $personal->empresa_id=$empresa_id;
+                $personal->save();
+                $nuevos++;
+            }else{
+                array_push($arrayRepetidos,$personal);
+                $repetidos++;
+            }
+        }
+        DB::commit();
+        return response()->json([
+            "status"=> "OK",
+            "data"  => "Carga Masiva: $nuevos Nuevos - $repetidos Repetidos.",
+            "repetidos" => $arrayRepetidos
+        ]);
+    }
     
     /**
      * Visualiza datos de un solo Personal
