@@ -23,7 +23,6 @@ class PedidoController extends Controller
         $hora_actual=Carbon::now()->format('H:i:s');
         $servicio=Servicio::where('inicio','<=',$hora_actual)
                             ->where('fin','>=',$hora_actual)
-                            ->where('codigo_personal',$request->codigo_personal)
                             ->first();
         if ($servicio==null) {
             return response()->json([
@@ -34,6 +33,7 @@ class PedidoController extends Controller
         $fecha_actual=Carbon::now()->format('Y-m-d');
         $pedido_encontrado=Pedido::where('servicio_id',$servicio->id)
                             ->where(DB::raw('date(created_at)'),$fecha_actual)
+                            ->where('codigo_personal',$request->codigo_personal)
                             ->first();
         if ($pedido_encontrado!=null) {
             return response()->json([
