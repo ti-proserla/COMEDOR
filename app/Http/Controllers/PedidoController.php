@@ -45,9 +45,10 @@ class PedidoController extends Controller
         $pedido->codigo_personal=$request->codigo_personal;
         $pedido->servicio_id=$servicio->id;
         $pedido->save();
+        $nombre_servicio=$servicio->nombre_servicio;
         return response()->json([
             "status"    =>  "OK",
-            "data"      =>  $personal->apellidos.", Ya puedes recoger tu Almuerzo."
+            "data"      =>  $personal->apellidos.", Ya puedes recoger tu $nombre_servicio."
         ]);
     }
 }
