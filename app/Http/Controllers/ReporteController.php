@@ -44,7 +44,7 @@ class ReporteController extends Controller
         $fin=$request->fin;
         $codigo=$request->codigo;
 
-        $reporte=DB::select(DB::raw("SELECT personal.codigo,nombres,apellidos,date(created_at) fecha,nombre_servicio
+        $reporte=DB::select(DB::raw("SELECT personal.codigo,nombres,apellidos,created_at fecha,nombre_servicio
                                             FROM personal INNER JOIN pedido ON personal.codigo= pedido.codigo_personal
                                             INNER JOIN servicio ON servicio.id= pedido.servicio_id
                                             WHERE ( DATE(pedido.created_at) BETWEEN '$inicio' AND '$fin' )
