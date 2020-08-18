@@ -132,6 +132,7 @@ export default {
             open_nuevo: false,
             open_editar: false,
             header:[
+                { text: 'Código', value: 'codigo' },
                 { text: 'Nombres', value: 'nombres' },
                 { text: 'Apellidos', value: 'apellidos' },
                 { text: 'Editar', value: 'editar' },

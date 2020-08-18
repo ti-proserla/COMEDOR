@@ -49,7 +49,7 @@
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
                     <v-list-item-content>
-                        planilla
+                        Planilla
                     </v-list-item-content>
                 </v-list-item>
                 
