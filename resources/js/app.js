@@ -15,18 +15,27 @@ Vue.use(Notifications)
 
 window.moment = require('moment');
 
-var auth=(to, from,next)=>{
+function rutas(){
+  return axios.get(url_base+'/rutas?rol='+store.state.cuenta.rol).then(res=>res.data).catch(res=>res);
+}
+
+var auth=async (to, from,next)=>{
   if(store.state.cuenta===null){
       next('/login');
   }else{
+    var listaRutas=await rutas();
+    store.state.rutas=listaRutas;
+    if (listaRutas.indexOf(to.path)>-1) {
       next();
+    }else{
+      next('/');
+    }
   }
 }
 
-
-
 const routes = [
-    { path: '/', component: require('./view/pedido.vue').default,beforeEnter: auth },
+    { path: '/', component: require('./view/home.vue').default,beforeEnter: auth },
+    { path: '/atencion', component: require('./view/pedido.vue').default,beforeEnter: auth },
     { path: '/reporte-fecha', component: require('./view/reporte-fecha.vue').default,beforeEnter: auth },
     { path: '/reporte-personal', component: require('./view/reporte-personal.vue').default,beforeEnter: auth },
     { path: '/empresa', component: require('./view/empresa.vue').default,beforeEnter: auth },
@@ -43,9 +52,11 @@ const router = new VueRouter({
 
 import Vuex from 'vuex'
 Vue.use(Vuex)
+
 window.store=new Vuex.Store({
   state: {
     cuenta: JSON.parse(localStorage.getItem('cuenta_sistema'))||null,
+    rutas: []
   },
   mutations: {        
     auth_success(state,cuenta){
@@ -55,6 +66,7 @@ window.store=new Vuex.Store({
     },
     auth_close(state){
       state.cuenta=null;
+      state.rutas=[];
       localStorage.removeItem('cuenta_sistema');
     }
   },

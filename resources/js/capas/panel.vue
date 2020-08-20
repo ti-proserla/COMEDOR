@@ -35,7 +35,15 @@
                         Inicio
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="/empresa">
+                <v-list-item v-if="existe('/atencion')" link to="/atencion">
+                    <v-list-item-icon>
+                        <i class="far fa-building"></i>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        Atención
+                    </v-list-item-content>
+                </v-list-item>
+                <v-list-item v-if="existe('/empresa')" link to="/empresa">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -44,7 +52,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link to="/planilla">
+                <v-list-item v-if="existe('/planilla')" link to="/planilla">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -53,7 +61,7 @@
                     </v-list-item-content>
                 </v-list-item>
                 
-                <v-list-item link to="/personal">
+                <v-list-item v-if="existe('/personal')" link to="/personal">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -62,7 +70,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link to="/servicio">
+                <v-list-item v-if="existe('/servicio')" link to="/servicio">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -71,7 +79,7 @@
                     </v-list-item-content>
                 </v-list-item>
 
-                <v-list-item link to="/reporte-fecha">
+                <v-list-item v-if="existe('/reporte-fecha')" link to="/reporte-fecha">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -79,7 +87,7 @@
                         Reporte por Fecha
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link to="/reporte-personal">
+                <v-list-item v-if="existe('/reporte-personal')" link to="/reporte-personal">
                     <v-list-item-icon>
                         <i class="far fa-building"></i>
                     </v-list-item-icon>
@@ -114,14 +122,17 @@ export default {
             open: true
         }
     },
-     computed: {
-        ...mapState(['cuenta']),
-     },
-     methods: {
-         cerrar(){
+    computed: {
+    ...mapState(['cuenta','rutas']),
+    },
+    methods: {
+        cerrar(){
             this.$store.commit('auth_close');
             this.$router.push({path: "/login"} );
+        },
+        existe(rol){
+            return this.rutas.indexOf(rol)>-1;
         }
-     },
+    },
 }
 </script>

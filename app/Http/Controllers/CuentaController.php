@@ -86,10 +86,28 @@ class CuentaController extends Controller
         ]);
     }
 
+    public function rutas(Request $request){
+        $rol=$request->rol;
+        $listaRutas=[];
+        switch ($rol) {
+            case 'ADMINISTRADOR':
+                $listaRutas=["/atencion","/empresa","/planilla","/personal","/reporte-personal","/reporte-fecha","/servicio"];
+                break;
+            case 'REPORTEADOR':
+                $listaRutas=["/reporte-fecha","/reporte-personal"];
+                break;
+            default:
+                $listaRutas=[];
+                break;
+        }
+        array_push($listaRutas,"/");
+        return response()->json($listaRutas);
+    }
+
     public function login(Request $request){
         $cuenta=Cuenta::where('usuario',$request->usuario)
             ->where('password',$request->password)
-            ->select('api_token','id','nombre','apellido','usuario')
+            ->select('api_token','id','nombre','apellido','usuario','rol')
             ->first();
         // dd($request->all());
         if ($cuenta==null) {
