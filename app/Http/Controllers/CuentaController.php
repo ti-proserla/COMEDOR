@@ -96,6 +96,9 @@ class CuentaController extends Controller
             case 'REPORTEADOR':
                 $listaRutas=["/reporte-fecha","/reporte-personal"];
                 break;
+            case 'TERMINAL':
+                $listaRutas=["/atencion"];
+                break;
             default:
                 $listaRutas=[];
                 break;
