@@ -37,11 +37,11 @@ export default {
             if (this.timer) {
                 clearTimeout(this.timer);
             }
+            var envio={
+                codigo_personal: this.codigo_barras
+            };
+            this.codigo_barras='';
             if (this.codigo_barras.length==8) {
-                var envio={
-                    codigo_personal: this.codigo_barras
-                };
-                this.codigo_barras='';
                 axios.post(url_base+'/pedido',envio)
                 .then(response => {
                     var respuesta=response.data;
