@@ -37,11 +37,11 @@ export default {
             if (this.timer) {
                 clearTimeout(this.timer);
             }
-            var envio={
-                codigo_personal: this.codigo_barras
-            };
-            this.codigo_barras='';
             if (this.codigo_barras.length==8) {
+                var envio={
+                    codigo_personal: this.codigo_barras
+                };
+                this.codigo_barras='';
                 axios.post(url_base+'/pedido',envio)
                 .then(response => {
                     var respuesta=response.data;
@@ -64,15 +64,16 @@ export default {
                     }
                     this.timer=setTimeout(() => {
                         this.alert=this.initAlert();
-                    }, 20000);
+                    }, 10000);
                 });
             }else{
                 this.alert.status= 'danger';
                 this.alert.visible= true;
                 this.alert.message= 'Código Incorrecto';
+                this.codigo_barras='';
                 this.timer=setTimeout(() => {
                     this.alert=this.initAlert();
-                }, 10000);
+                }, 20000);
             }
         }
     },
