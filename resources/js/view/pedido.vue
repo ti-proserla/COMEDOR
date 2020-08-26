@@ -64,7 +64,7 @@ export default {
                     }
                     this.timer=setTimeout(() => {
                         this.alert=this.initAlert();
-                    }, 10000);
+                    }, 20000);
                 });
             }else{
                 this.alert.status= 'danger';
@@ -72,7 +72,7 @@ export default {
                 this.alert.message= 'Código Incorrecto';
                 this.timer=setTimeout(() => {
                     this.alert=this.initAlert();
-                }, 20000);
+                }, 10000);
             }
         }
     },
