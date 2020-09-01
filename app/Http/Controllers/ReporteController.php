@@ -25,12 +25,21 @@ class ReporteController extends Controller
             $queryServicio="$queryServicio IF(servicio_id=$id, 4.5, 0) $nombre,";
         }
         $queryServicio=substr($queryServicio,0,-1);
-        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,created_at fecha, servicio.nombre_servicio, 
+        $queryPlanilla="";
+        if($request->has('planilla_id')){
+            if($request->planilla_id!=null){
+                $queryPlanilla="AND planilla_id=".$request->planilla_id;
+            }
+        }
+        
+        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,created_at fecha, servicio.nombre_servicio, nombre_planilla, 
                                             $queryServicio
                                             FROM personal INNER JOIN pedido ON personal.codigo= pedido.codigo_personal
                                             INNER JOIN servicio ON servicio.id= pedido.servicio_id
+                                            INNER JOIN planilla ON planilla.id= personal.planilla_id
                                             WHERE ( DATE(created_at) BETWEEN '$inicio' AND '$fin' )
                                                 AND empresa_id=?
+                                                $queryPlanilla
                                             ORDER BY codigo ASC, created_at ASC"), [(int)$request->empresa_id]);
         if ($request->has('excel')) {
             $empresa=Empresa::where('id',(int)$request->empresa_id)->first();
