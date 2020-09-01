@@ -22,15 +22,16 @@ class ReporteController extends Controller
         foreach ($servicios as $key => $servicio) {
             $id=$servicio->id;
             $nombre=str_replace(" ","_",$servicio->nombre_servicio);
-            $queryServicio="$queryServicio SUM(CASE WHEN servicio_id=$id THEN 1 ELSE 0 END  ) $nombre,";
+            $queryServicio="$queryServicio IF(servicio_id=$id, 4.5, 0) $nombre,";
         }
         $queryServicio=substr($queryServicio,0,-1);
-        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos, 
+        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,DATE(created_at) fecha, servicio.nombre_servicio, 
                                             $queryServicio
                                             FROM personal INNER JOIN pedido ON personal.codigo= pedido.codigo_personal
+                                            INNER JOIN servicio ON servicio.id= pedido.servicio_id
                                             WHERE ( DATE(created_at) BETWEEN '$inicio' AND '$fin' )
                                                 AND empresa_id=?
-                                            GROUP BY codigo,nombres,apellidos"), [(int)$request->empresa_id]);
+                                            ORDER BY codigo ASC, created_at ASC"), [(int)$request->empresa_id]);
         if ($request->has('excel')) {
             $empresa=Empresa::where('id',(int)$request->empresa_id)->first();
             $nombre_empresa=$empresa->nombre_empresa;

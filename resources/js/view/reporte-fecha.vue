@@ -58,6 +58,8 @@ export default {
                 { text: 'Código', value: 'codigo' },
                 { text: 'Nombres', value: 'nombres' },
                 { text: 'Apellidos', value: 'apellidos' },
+                { text: 'Fecha', value: 'fecha' },
+                { text: 'Nombre Servicio', value: 'nombre_servicio' },
             ],
             table: [],
             empresas: [],
