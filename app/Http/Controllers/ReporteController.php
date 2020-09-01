@@ -25,7 +25,7 @@ class ReporteController extends Controller
             $queryServicio="$queryServicio IF(servicio_id=$id, 4.5, 0) $nombre,";
         }
         $queryServicio=substr($queryServicio,0,-1);
-        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,DATE(created_at) fecha, servicio.nombre_servicio, 
+        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,created_at fecha, servicio.nombre_servicio, 
                                             $queryServicio
                                             FROM personal INNER JOIN pedido ON personal.codigo= pedido.codigo_personal
                                             INNER JOIN servicio ON servicio.id= pedido.servicio_id
