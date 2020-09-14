@@ -97,7 +97,7 @@ class CuentaController extends Controller
                 $listaRutas=["/reporte-fecha","/reporte-personal"];
                 break;
             case 'TERMINAL':
-                $listaRutas=["/atencion"];
+                $listaRutas=["/atencion","/reporte-fecha","/reporte-personal"];
                 break;
             default:
                 $listaRutas=[];
