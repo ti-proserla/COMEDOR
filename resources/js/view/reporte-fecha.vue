@@ -12,7 +12,6 @@
                                     type="date"
                                     label="Fecha Inicio" 
                                     v-model="busqueda.inicio"
-                                    outlined
                                     dense
                                     ></v-text-field>
                             </v-col>
@@ -22,7 +21,6 @@
                                     type="date"
                                     label="Fecha Fin" 
                                     v-model="busqueda.fin"
-                                    outlined
                                     dense
                                     ></v-text-field>
                             </v-col>
