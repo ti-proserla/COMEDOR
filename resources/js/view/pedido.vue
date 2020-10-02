@@ -5,7 +5,7 @@
                 <v-card>
                     <v-card-title>Registro de Atención</v-card-title>
                     <v-card-text>
-                        <form v-on:submit.prevent="guardar()">
+                        <form autocomplete="off" v-on:submit.prevent="guardar()">
                             <v-text-field label="Código de Barras" autofocus v-model="codigo_barras"></v-text-field>
                             <button type="submit" hidden>Submin</button>
                         </form>
