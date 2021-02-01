@@ -27,4 +27,4 @@ Route::resource('servicio', 'ServicioController');
 Route::post('pedido', 'PedidoController@store');
 Route::get('reporte/fecha', 'ReporteController@fecha');
 Route::get('reporte/personal', 'ReporteController@personal');
-Route::get('reporte/tiempos', 'ReporteController@tiempo_comedor');
+Route::get('reporte/tiempo', 'ReporteController@tiempo_comedor');
