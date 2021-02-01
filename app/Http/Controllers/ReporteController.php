@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Excel;
 use App\Exports\ReportePersonalExport;
 use App\Exports\ReporteFechaExport;
+use App\Exports\ReporteTiemposExport;
 
 class ReporteController extends Controller
 {
