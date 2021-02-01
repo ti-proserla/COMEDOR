@@ -91,7 +91,7 @@ class CuentaController extends Controller
         $listaRutas=[];
         switch ($rol) {
             case 'ADMINISTRADOR':
-                $listaRutas=["/atencion","/empresa","/planilla","/personal","/reporte-personal","/reporte-fecha","/servicio"];
+                $listaRutas=["/atencion","/empresa","/planilla","/personal","/reporte-personal","/reporte-fecha","/reporte-tiempo","/servicio"];
                 break;
             case 'REPORTEADOR':
                 $listaRutas=["/reporte-fecha","/reporte-personal"];
