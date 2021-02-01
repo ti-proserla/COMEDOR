@@ -64,7 +64,7 @@ export default {
         //     })
         // },
         excel(){
-            return url_base+'/reporte/tiempo'
+            return url_base+'/reporte/tiempo?excel'
         }
     },
 }
