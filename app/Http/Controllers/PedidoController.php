@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Personal;
 use App\Model\Pedido;
+use App\Model\TerminoPedido;
 use App\Model\Servicio;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -36,6 +37,16 @@ class PedidoController extends Controller
                             ->where('codigo_personal',$request->codigo_personal)
                             ->first();
         if ($pedido_encontrado!=null) {
+            if ($personal->planilla_id==2&&Carbon::parse($pedido_encontrado->created_at)->diffInMinutes(Carbon::now())>0) {
+                $termino=new TerminoPedido();
+                $termino->codigo_personal=$request->codigo_personal;
+                $termino->save();
+                return response()->json([
+                    "status"    =>  "OK",
+                    "data"      =>  $personal->apellidos.", Salida del comedor registrada. ".Carbon::parse($pedido_encontrado->created_at)->diffInMinutes(Carbon::now())." min."
+                ]);
+            }
+            
             return response()->json([
                 "status"    =>  "ERROR",
                 "data"      =>  "Usted ya fue atentido recientemente."
