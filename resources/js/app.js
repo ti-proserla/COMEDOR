@@ -38,6 +38,7 @@ const routes = [
     { path: '/atencion', component: require('./view/pedido.vue').default,beforeEnter: auth },
     { path: '/reporte-fecha', component: require('./view/reporte-fecha.vue').default,beforeEnter: auth },
     { path: '/reporte-personal', component: require('./view/reporte-personal.vue').default,beforeEnter: auth },
+    { path: '/reporte-tiempo', component: require('./view/reporte-tiempo.vue').default,beforeEnter: auth },
     { path: '/empresa', component: require('./view/empresa.vue').default,beforeEnter: auth },
     { path: '/planilla', component: require('./view/planilla.vue').default,beforeEnter: auth },
     { path: '/personal', component: require('./view/personal.vue').default,beforeEnter: auth },

@@ -67,4 +67,21 @@ class ReporteController extends Controller
         }
         return response()->json($reporte);
     }
+
+    public function tiempo_comedor(Request $request){
+        $inicio=$request->inicio;
+        $fin=$request->fin;
+
+        $reporte=DB::select(DB::raw("SELECT P.codigo_personal codigo,PER.nombres, PER.apellidos,  P.created_at entrada, TP.created_at salida ,TIMESTAMPDIFF(MINUTE,P.created_at,TP.created_at) tiempo
+                                        FROM personal PER
+                                        INNER JOIN pedido P ON PER.codigo=P.codigo_personal 
+                                        INNER JOIN termino_pedido TP ON 
+                                        (P.codigo_personal=TP.codigo_personal AND DATE(P.created_at) = DATE(TP.created_at))"), 
+                                            []);
+        if ($request->has('excel')) {
+            // return Excel::download(new ReporteTiemposExport($reporte), "Reporte-tiempos-$inicio-$fin-$nombre_personal.xlsx");
+            return Excel::download(new ReporteTiemposExport($reporte), "Reporte-tiempos.xlsx");
+        }
+        return response()->json($reporte);
+    }
 }

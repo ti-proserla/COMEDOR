@@ -95,6 +95,14 @@
                         Reporte por Personal
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item v-if="existe('/reporte-tiempo')" link to="/reporte-tiempo">
+                    <v-list-item-icon>
+                        <i class="far fa-building"></i>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                        Reporte Tiempo Servicio
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item-content>
                     <v-btn color="error" text small @click="cerrar">Cerrar Sistema</v-btn>
                 </v-list-item-content>
