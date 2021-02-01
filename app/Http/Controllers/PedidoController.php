@@ -37,7 +37,7 @@ class PedidoController extends Controller
                             ->where('codigo_personal',$request->codigo_personal)
                             ->first();
         if ($pedido_encontrado!=null) {
-            if ($personal->planilla_id==2&&Carbon::parse($pedido_encontrado->created_at)->diffInMinutes(Carbon::now())>0) {
+            if ($personal->planilla_id==2&&Carbon::parse($pedido_encontrado->created_at)->diffInMinutes(Carbon::now())>5) {
                 $termino=new TerminoPedido();
                 $termino->codigo_personal=$request->codigo_personal;
                 $termino->save();
