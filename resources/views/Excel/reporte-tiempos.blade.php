@@ -12,12 +12,12 @@
     <tbody>
         @foreach ($datos as $dato)
             <tr>
-                <td>{{$dato['codigo']}}</td>
-                <td>{{$dato['nombres']}}</td>
-                <td>{{$dato['apellidos']}}</td>
-                <td>{{$dato['entrada']}}</td>
-                <td>{{$dato['salida']}}</td>
-                <td>{{$dato['tiempo']}}</td>
+                <td>{{ $dato->codigo }}</td>
+                <td>{{ $dato->nombres }}</td>
+                <td>{{ $dato->apellidos }}</td>
+                <td>{{ $dato->entrada }}</td>
+                <td>{{ $dato->salida }}</td>
+                <td>{{ $dato->tiempo }}</td>
             </tr>
         @endforeach
     </tbody>
