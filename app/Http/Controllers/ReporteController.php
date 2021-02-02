@@ -23,7 +23,7 @@ class ReporteController extends Controller
         foreach ($servicios as $key => $servicio) {
             $id=$servicio->id;
             $nombre=str_replace(" ","_",$servicio->nombre_servicio);
-            $queryServicio="$queryServicio IF(servicio_id=$id, 4.5, 0) $nombre,";
+            $queryServicio="$queryServicio IF(servicio_id=$id, 5.5, 0) $nombre,";
         }
         $queryServicio=substr($queryServicio,0,-1);
         $queryPlanilla="";
