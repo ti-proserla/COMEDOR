@@ -41,7 +41,7 @@ class ReporteController extends Controller
                                             WHERE ( DATE(created_at) BETWEEN '$inicio' AND '$fin' )
                                                 AND empresa_id=?
                                                 $queryPlanilla
-                                            ORDER BY codigo ASC, created_at ASC"), [(int)$request->empresa_id]);
+                                            ORDER BY created_at ASC"), [(int)$request->empresa_id]);
         if ($request->has('excel')) {
             $empresa=Empresa::where('id',(int)$request->empresa_id)->first();
             $nombre_empresa=$empresa->nombre_empresa;
