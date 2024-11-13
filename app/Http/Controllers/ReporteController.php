@@ -33,7 +33,7 @@ class ReporteController extends Controller
             }
         }
         
-        $reporte=DB::select(DB::raw("SELECT codigo,nombres,apellidos,created_at fecha, servicio.nombre_servicio, nombre_planilla, 
+        $reporte=DB::select(DB::raw("SELECT DISTINCT codigo,nombres,apellidos,created_at fecha, servicio.nombre_servicio, nombre_planilla, 
                                             $queryServicio
                                             FROM personal INNER JOIN pedido ON personal.codigo= pedido.codigo_personal
                                             INNER JOIN servicio ON servicio.id= pedido.servicio_id
